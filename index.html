@@ -36,10 +36,13 @@
             color: #FFFF00 !important;
             border: 3px solid #FFFF00 !important;
         }
-        .theme-contrast .card-bg {
+        .theme-contrast .card-bg, .theme-contrast header {
             background-color: #121212 !important;
             border: 2px solid #FFFF00 !important;
             color: #FFFFFF !important;
+        }
+        .theme-contrast .text-slate-600, .theme-contrast .text-slate-800, .theme-contrast p {
+            color: #dddddd !important;
         }
 
         /* Pulsing SOS effect */
@@ -67,7 +70,7 @@
 <body id="app-body" class="bg-slate-100 text-slate-900 min-h-full flex flex-col transition-all duration-200 text-size-normal">
 
     <!-- Accessibility Control Topbar -->
-    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-40">
+    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-40 transition-colors">
         <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-2">
             <!-- App Title & Time -->
             <div class="flex items-center space-x-3">
@@ -118,22 +121,22 @@
 
         <!-- Main Navigation Tabs -->
         <nav class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <button onclick="switchTab('meds')" id="tab-btn-meds" class="tab-btn card-bg bg-white hover:bg-blue-50 active:scale-95 border-3 border-blue-500 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800">
+            <button onclick="switchTab('meds')" id="tab-btn-meds" class="tab-btn card-bg bg-white hover:bg-blue-50 active:scale-95 border-3 border-blue-500 ring-4 ring-blue-300 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800">
                 <i class="fa-solid fa-pills text-4xl text-blue-600 mb-2"></i>
                 <span class="text-lg leading-tight">Remédios</span>
             </button>
 
-            <button onclick="switchTab('agenda')" id="tab-btn-agenda" class="tab-btn card-bg bg-white hover:bg-emerald-50 active:scale-95 border-3 border-emerald-500 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800">
+            <button onclick="switchTab('agenda')" id="tab-btn-agenda" class="tab-btn card-bg bg-white hover:bg-emerald-50 active:scale-95 border-3 border-transparent p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800 opacity-80">
                 <i class="fa-solid fa-calendar-check text-4xl text-emerald-600 mb-2"></i>
                 <span class="text-lg leading-tight">Consultas</span>
             </button>
 
-            <button onclick="switchTab('contacts')" id="tab-btn-contacts" class="tab-btn card-bg bg-white hover:bg-purple-50 active:scale-95 border-3 border-purple-500 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800">
+            <button onclick="switchTab('contacts')" id="tab-btn-contacts" class="tab-btn card-bg bg-white hover:bg-purple-50 active:scale-95 border-3 border-transparent p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800 opacity-80">
                 <i class="fa-solid fa-address-book text-4xl text-purple-600 mb-2"></i>
                 <span class="text-lg leading-tight">Contatos</span>
             </button>
 
-            <button onclick="switchTab('health')" id="tab-btn-health" class="tab-btn card-bg bg-white hover:bg-amber-50 active:scale-95 border-3 border-amber-500 p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800">
+            <button onclick="switchTab('health')" id="tab-btn-health" class="tab-btn card-bg bg-white hover:bg-amber-50 active:scale-95 border-3 border-transparent p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-md transition font-bold text-slate-800 opacity-80">
                 <i class="fa-solid fa-person-walking text-4xl text-amber-600 mb-2"></i>
                 <span class="text-lg leading-tight">Bem-Estar</span>
             </button>
@@ -154,7 +157,6 @@
                 </button>
             </div>
 
-            <!-- List of Medications -->
             <div id="med-list" class="space-y-4">
                 <!-- Javascript will populate this section -->
             </div>
@@ -214,7 +216,7 @@
                 </a>
             </div>
 
-            <h3 class="text-xl font-extrabold text-slate-800 pt-2 border-t">Meus Familires e Amigos</h3>
+            <h3 class="text-xl font-extrabold text-slate-800 pt-2 border-t mt-4">Meus Familiares e Amigos</h3>
             <div id="contact-list" class="space-y-4">
                 <!-- Javascript will populate contacts -->
             </div>
@@ -250,42 +252,17 @@
                 </div>
             </div>
 
-            <!-- Simple Stretch Exercises -->
-            <div class="space-y-4">
-                <h3 class="text-xl font-extrabold text-slate-800">Exercícios Leves de Alongamento</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
-                        <div class="text-amber-600 text-3xl text-center"><i class="fa-solid fa-arrows-up-down"></i></div>
-                        <h4 class="font-bold text-center text-lg text-slate-900">1. Pescoço</h4>
-                        <p class="text-sm text-slate-600 text-center">Gire a cabeça bem devagar para a direita por 5 segundos, depois para a esquerda.</p>
-                    </div>
-
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
-                        <div class="text-amber-600 text-3xl text-center"><i class="fa-solid fa-child-reaching"></i></div>
-                        <h4 class="font-bold text-center text-lg text-slate-900">2. Braços e Ombros</h4>
-                        <p class="text-sm text-slate-600 text-center">Levante os braços em direção ao teto, estique suavemente e respire fundo.</p>
-                    </div>
-
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
-                        <div class="text-amber-600 text-3xl text-center"><i class="fa-solid fa-person-walking-arrow-right"></i></div>
-                        <h4 class="font-bold text-center text-lg text-slate-900">3. Pés e Tornozelos</h4>
-                        <p class="text-sm text-slate-600 text-center">Sentado(a), faça pequenos círculos com os pés no ar para melhorar a circulação.</p>
-                    </div>
-                </div>
-            </div>
-
             <!-- Brain Training Game Section -->
             <div class="border-t pt-6 space-y-4">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center flex-wrap gap-2">
                     <h3 class="text-xl font-extrabold text-slate-800">Jogo da Memória Divertido</h3>
-                    <button onclick="resetMemoryGame()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm">
+                    <button onclick="resetMemoryGame()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-sm shadow">
                         Recomeçar Jogo 🔄
                     </button>
                 </div>
-                <p class="text-slate-600">Encontre os pares das figuras iguais clicando nas cartas:</p>
+                <p class="text-slate-600">Encontre os pares das figuras iguais clicando nas cartas para exercitar o cérebro:</p>
 
-                <div id="memory-grid" class="grid grid-cols-4 gap-3 max-w-md mx-auto">
+                <div id="memory-grid" class="grid grid-cols-4 gap-3 max-w-md mx-auto mt-4">
                     <!-- Memory Game Dynamic -->
                 </div>
             </div>
@@ -305,21 +282,20 @@
             </div>
 
             <div class="space-y-3" id="sos-contact-options">
-                <!-- Direct options -->
                 <a href="tel:192" class="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold text-xl py-4 rounded-2xl flex items-center justify-center space-x-3 shadow-md">
                     <i class="fa-solid fa-truck-medical text-2xl"></i>
                     <span>Ligar para SAMU (192)</span>
                 </a>
             </div>
 
-            <button onclick="closeSosModal()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-lg py-3 rounded-2xl">
+            <button onclick="closeModal('sos-modal')" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-lg py-3 rounded-2xl shadow">
                 Cancelar e Voltar
             </button>
         </div>
     </div>
 
     <!-- MODAL: Add Medication -->
-    <div id="add-med-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
+    <div id="add-med-modal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 hidden">
         <div class="card-bg bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4 border-2 border-blue-500">
             <h3 class="text-2xl font-black text-blue-900 flex items-center">
                 <i class="fa-solid fa-pills mr-2 text-blue-600"></i> Cadastrar Remédio
@@ -327,27 +303,16 @@
             <form id="med-form" onsubmit="saveMedication(event)" class="space-y-4">
                 <div>
                     <label class="block font-bold text-slate-800 text-lg mb-1">Nome do Remédio:</label>
-                    <input type="text" id="med-name" required placeholder="Ex: Dipirona, Pressão..." class="w-full text-lg p-3 border-2 border-slate-300 rounded-xl focus:border-blue-600 outline-none">
+                    <input type="text" id="med-name" required placeholder="Ex: Dipirona, Pressão..." class="w-full text-lg p-3 border-2 border-slate-300 rounded-xl outline-none text-black">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-800 text-lg mb-1">Dosagem (Quantidade):</label>
-                    <input type="text" id="med-dosage" required placeholder="Ex: 1 Comprimido, 10mg..." class="w-full text-lg p-3 border-2 border-slate-300 rounded-xl focus:border-blue-600 outline-none">
+                    <input type="text" id="med-dosage" required placeholder="Ex: 1 Comprimido..." class="w-full text-lg p-3 border-2 border-slate-300 rounded-xl outline-none text-black">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-800 text-lg mb-1">Horário:</label>
-                    <input type="time" id="med-time" required class="w-full text-xl p-3 border-2 border-slate-300 rounded-xl focus:border-blue-600 outline-none">
+                    <input type="time" id="med-time" required class="w-full text-xl p-3 border-2 border-slate-300 rounded-xl outline-none text-black">
                 </div>
 
                 <div class="flex space-x-3 pt-2">
-                    <button type="button" onclick="closeAddMedModal()" class="w-1/2 bg-slate-200 hover:bg-slate-300 font-bold text-lg py-3 rounded-xl">Cancelar</button>
-                    <button type="submit" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-3 rounded-xl shadow">Salvar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: Add Appointment -->
-    <div id="add-appt-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="card-bg bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4 border-2 border-emerald-500">
-            <h3 class="text-2xl font-black text-emerald-900 flex items-center">
-                <i class="fa-solid fa-calendar-plus mr-2 text-emerald-600"></i> Nova Consulta ou
+                    <button type="button" onclick="closeModal('add-med-modal')" class="w-1/2 bg-slate-200 hover:bg-slate-300 font
