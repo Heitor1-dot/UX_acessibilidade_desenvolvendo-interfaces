@@ -1,0 +1,75 @@
+   <style>
+        :root {
+            --font-scale: 1;
+        }
+
+        html {
+            font-size: calc(16px * var(--font-scale));
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Mode High Contrast */
+        .high-contrast {
+            background-color: #000000 !important;
+            color: #FFFF00 !important;
+        }
+
+        .high-contrast .bg-card,
+        .high-contrast .card-bg {
+            background-color: #121212 !important;
+            border-color: #FFFF00 !important;
+            color: #FFFFFF !important;
+        }
+
+        .high-contrast button,
+        .high-contrast a.btn-action {
+            background-color: #FFFF00 !important;
+            color: #000000 !important;
+            font-weight: 900 !important;
+            border: 2px solid #FFFFFF !important;
+        }
+
+        .high-contrast h1, .high-contrast h2, .high-contrast h3, .high-contrast h4 {
+            color: #FFFF00 !important;
+        }
+
+        /* Pulsing animation for SOS alert button */
+        @keyframes pulse-sos {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 0 14px rgba(220, 38, 38, 0);
+            }
+        }
+
+        .pulse-sos {
+            animation: pulse-sos 2s infinite ease-in-out;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #64748b;
+            border-radius: 5px;
+        }
+
+        /* Tab active state */
+        .tab-btn.active {
+            background-color: #1e40af;
+            color: #ffffff;
+            border-color: #1e3a8a;
+        }
+    </style>
