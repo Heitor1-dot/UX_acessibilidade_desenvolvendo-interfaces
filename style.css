@@ -1,5 +1,5 @@
-   <style>
-        :root {
+
+  :root {
             --font-scale: 1;
         }
 
@@ -13,14 +13,14 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Mode High Contrast */
+        /* Alta Acessibilidade e Alto Contraste */
         .high-contrast {
             background-color: #000000 !important;
             color: #FFFF00 !important;
         }
 
-        .high-contrast .bg-card,
-        .high-contrast .card-bg {
+        .high-contrast .card-bg,
+        .high-contrast .modal-box {
             background-color: #121212 !important;
             border-color: #FFFF00 !important;
             color: #FFFFFF !important;
@@ -34,19 +34,24 @@
             border: 2px solid #FFFFFF !important;
         }
 
-        .high-contrast h1, .high-contrast h2, .high-contrast h3, .high-contrast h4 {
+        .high-contrast h1, 
+        .high-contrast h2, 
+        .high-contrast h3, 
+        .high-contrast h4,
+        .high-contrast span,
+        .high-contrast p {
             color: #FFFF00 !important;
         }
 
-        /* Pulsing animation for SOS alert button */
+        /* Animação pulsante para o botão de emergência SOS */
         @keyframes pulse-sos {
             0%, 100% {
                 transform: scale(1);
                 box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
             }
             50% {
-                transform: scale(1.02);
-                box-shadow: 0 0 0 14px rgba(220, 38, 38, 0);
+                transform: scale(1.03);
+                box-shadow: 0 0 0 16px rgba(220, 38, 38, 0);
             }
         }
 
@@ -54,9 +59,10 @@
             animation: pulse-sos 2s infinite ease-in-out;
         }
 
-        /* Custom scrollbar */
+        /* Personalização do scroll */
         ::-webkit-scrollbar {
             width: 10px;
+            height: 10px;
         }
         ::-webkit-scrollbar-track {
             background: #e2e8f0;
@@ -66,10 +72,10 @@
             border-radius: 5px;
         }
 
-        /* Tab active state */
+        /* Aba ativa */
         .tab-btn.active {
-            background-color: #1e40af;
-            color: #ffffff;
-            border-color: #1e3a8a;
+            background-color: #1e40af !important;
+            color: #ffffff !important;
+            border-color: #3b82f6 !important;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
-    </style>

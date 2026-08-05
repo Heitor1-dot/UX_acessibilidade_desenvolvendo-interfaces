@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
 </head>
 <body class="bg-slate-100 text-slate-900 min-h-full flex flex-col font-sans transition-all duration-200" id="main-body">
 
@@ -26,16 +27,16 @@
                 <span>Acessibilidade:</span>
             </div>
             <div class="flex items-center space-x-2">
-                <button onclick="changeFontSize(0.1)" class="bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-lg border border-slate-600 flex items-center gap-1 active:scale-95" title="Aumentar Texto">
+                <button onclick="changeFontSize(0.1)" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-600 flex items-center gap-1 active:scale-95" title="Aumentar Texto">
                     <i class="fa-solid fa-plus text-xs"></i> Texto
                 </button>
-                <button onclick="changeFontSize(-0.1)" class="bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-lg border border-slate-600 flex items-center gap-1 active:scale-95" title="Diminuir Texto">
+                <button onclick="changeFontSize(-0.1)" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-600 flex items-center gap-1 active:scale-95" title="Diminuir Texto">
                     <i class="fa-solid fa-minus text-xs"></i> Texto
                 </button>
-                <button onclick="toggleContrast()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1 rounded-lg font-black flex items-center gap-1 active:scale-95">
+                <button onclick="toggleContrast()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1.5 rounded-xl font-black flex items-center gap-1 active:scale-95">
                     <i class="fa-solid fa-circle-half-stroke"></i> Contraste
                 </button>
-                <button onclick="speakPageSummary()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg font-bold flex items-center gap-1 active:scale-95">
+                <button onclick="speakPageSummary()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 active:scale-95">
                     <i class="fa-solid fa-volume-high"></i> Ouvir
                 </button>
             </div>
@@ -56,17 +57,17 @@
             </div>
 
             <!-- Data Atual -->
-            <div class="bg-blue-800 text-blue-100 font-bold px-4 py-2 rounded-xl text-sm border border-blue-700 flex items-center gap-2">
+            <div class="bg-blue-800 text-blue-100 font-bold px-4 py-2 rounded-xl text-sm border border-blue-700 flex items-center gap-2 shadow-inner">
                 <i class="fa-solid fa-calendar-day text-amber-400 text-base"></i>
-                <span id="current-date-display">Hoje</span>
+                <span id="current-date-display">Carregando data...</span>
             </div>
         </div>
 
-        <!-- ABAS DE NAVEGAÇÃO / FILTROS (DIVISÃO VISUAL) -->
+        <!-- ABAS DE NAVEGAÇÃO / FILTROS -->
         <div class="bg-blue-950 px-4 py-2 border-t border-blue-800">
-            <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto pb-1">
                 <button onclick="filterCategory('all')" id="tab-all" class="tab-btn active px-4 py-2 rounded-xl font-extrabold text-sm border border-blue-700 whitespace-nowrap transition flex items-center gap-2">
-                    <i class="fa-solid fa-border-all"></i> Visão Dividida (Tudo)
+                    <i class="fa-solid fa-border-all"></i> Tudo
                 </button>
                 <button onclick="filterCategory('meds')" id="tab-meds" class="tab-btn bg-blue-900 text-blue-100 px-4 py-2 rounded-xl font-extrabold text-sm border border-blue-800 hover:bg-blue-800 whitespace-nowrap transition flex items-center gap-2">
                     <i class="fa-solid fa-pills text-blue-300"></i> Remédios
@@ -108,214 +109,36 @@
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="main-grid">
 
-            <!-- ================= COLUNA ESQUERDA: ROTINA DIÁRIA (REMÉDIOS & ÁGUA) ================= -->
+            <!-- COLUNA ESQUERDA: REMÉDIOS E ÁGUA -->
             <div class="space-y-6" id="col-left">
 
                 <!-- BLOCO 1: MEUS REMÉDIOS -->
                 <section id="section-meds" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
-                    <div class="border-b pb-3 flex justify-between items-center">
+                    <div class="border-b pb-3 flex justify-between items-center gap-2">
                         <div class="flex items-center space-x-3">
                             <div class="bg-blue-100 text-blue-700 p-3 rounded-2xl text-xl font-bold">
                                 <i class="fa-solid fa-capsules"></i>
                             </div>
                             <div>
                                 <h2 class="text-xl md:text-2xl font-black text-blue-900">1. Remédios do Dia</h2>
-                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Marque a caixinha quando tomar</p>
+                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Toque na caixinha para marcar</p>
                             </div>
                         </div>
-                        <span id="med-counter" class="bg-blue-100 text-blue-800 font-black px-3 py-1 rounded-xl text-xs">
-                            0/3 Concluídos
-                        </span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span id="med-counter" class="bg-blue-100 text-blue-800 font-black px-3 py-1 rounded-xl text-xs whitespace-nowrap">
+                                0/0 Concluídos
+                            </span>
+                            <button onclick="openAddMedModal()" class="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 border border-blue-200 bg-blue-50 px-2.5 py-1 rounded-lg">
+                                <i class="fa-solid fa-plus-circle"></i> Adicionar
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Lista de Medicamentos -->
+                    <!-- Lista de Medicamentos Dinâmica -->
                     <div class="space-y-3" id="med-list">
-                        
-                        <!-- Remédio 1 -->
-                        <div class="med-card flex items-center justify-between p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl hover:border-blue-400 transition">
-                            <div class="flex items-center space-x-3">
-                                <input type="checkbox" id="med-1" onchange="updateMedProgress()" class="w-7 h-7 text-blue-600 accent-blue-600 rounded cursor-pointer">
-                                <label for="med-1" class="cursor-pointer select-none">
-                                    <span class="text-lg font-bold block text-slate-900">Enalapril (Pressão)</span>
-                                    <span class="text-xs md:text-sm text-slate-600 font-semibold">1 comprimido às <strong class="text-blue-700">08:00</strong></span>
-                                </label>
-                            </div>
-                            <span class="med-status bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-xl text-xs">
-                                Pendente
-                            </span>
-                        </div>
-
-                        <!-- Remédio 2 -->
-                        <div class="med-card flex items-center justify-between p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl hover:border-blue-400 transition">
-                            <div class="flex items-center space-x-3">
-                                <input type="checkbox" id="med-2" onchange="updateMedProgress()" class="w-7 h-7 text-blue-600 accent-blue-600 rounded cursor-pointer">
-                                <label for="med-2" class="cursor-pointer select-none">
-                                    <span class="text-lg font-bold block text-slate-900">Vitamina D</span>
-                                    <span class="text-xs md:text-sm text-slate-600 font-semibold">1 cápsula às <strong class="text-blue-700">12:00</strong></span>
-                                </label>
-                            </div>
-                            <span class="med-status bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-xl text-xs">
-                                Pendente
-                            </span>
-                        </div>
-
-                        <!-- Remédio 3 -->
-                        <div class="med-card flex items-center justify-between p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl hover:border-blue-400 transition">
-                            <div class="flex items-center space-x-3">
-                                <input type="checkbox" id="med-3" onchange="updateMedProgress()" class="w-7 h-7 text-blue-600 accent-blue-600 rounded cursor-pointer">
-                                <label for="med-3" class="cursor-pointer select-none">
-                                    <span class="text-lg font-bold block text-slate-900">Dipirona</span>
-                                    <span class="text-xs md:text-sm text-slate-600 font-semibold">1 comprimido às <strong class="text-blue-700">20:00</strong></span>
-                                </label>
-                            </div>
-                            <span class="med-status bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-xl text-xs">
-                                Pendente
-                            </span>
-                        </div>
-
+                        <!-- Carregado via JS -->
                     </div>
                 </section>
 
                 <!-- BLOCO 2: HIDRATAÇÃO (CONTADOR DE ÁGUA) -->
-                <section id="section-water" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
-                    <div class="border-b pb-3 flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-sky-100 text-sky-700 p-3 rounded-2xl text-xl font-bold">
-                                <i class="fa-solid fa-glass-water"></i>
-                            </div>
-                            <div>
-                                <h2 class="text-xl md:text-2xl font-black text-sky-900">2. Controle de Água</h2>
-                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Meta diária: 6 copos de água</p>
-                            </div>
-                        </div>
-                        <span id="water-count-badge" class="bg-sky-100 text-sky-800 font-black px-3 py-1 rounded-xl text-xs">
-                            0/6 Copos
-                        </span>
-                    </div>
-
-                    <!-- Checkboxes Interativos dos Copos -->
-                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 pt-2">
-                        <button onclick="toggleWaterGlass(1)" id="water-glass-1" class="glass-btn border-2 border-sky-300 bg-sky-50 text-sky-700 py-3 rounded-2xl font-bold flex flex-col items-center justify-center hover:bg-sky-100 transition active:scale-95">
-                            <i class="fa-solid fa-glass-water text-2xl mb-1"></i>
-                            <span class="text-xs">1º Copo</span>
-                        </button>
-
-                        <button onclick="toggleWaterGlass(2)" id="water-glass-2" class="glass-btn border-2 border-sky-300 bg-sky-50 text-sky-700 py-3 rounded-2xl font-bold flex flex-col items-center justify-center hover:bg-sky-100 transition active:scale-95">
-                            <i class="fa-solid fa-glass-water text-2xl mb-1"></i>
-                            <span class="text-xs">2º Copo</span>
-                        </button>
-
-                        <button onclick="toggleWaterGlass(3)" id="water-glass-3" class="glass-btn border-2 border-sky-300 bg-sky-50 text-sky-700 py-3 rounded-2xl font-bold flex flex-col items-center justify-center hover:bg-sky-100 transition active:scale-95">
-                            <i class="fa-solid fa-glass-water text-2xl mb-1"></i>
-                            <span class="text-xs">3º Copo</span>
-                        </button>
-
-                        <button onclick="toggleWaterGlass(4)" id="water-glass-4" class="glass-btn border-2 border-sky-300 bg-sky-50 text-sky-700 py-3 rounded-2xl font-bold flex flex-col items-center justify-center hover:bg-sky-100 transition active:scale-95">
-                            <i class="fa-solid fa-glass-water text-2xl mb-1"></i>
-                            <span class="text-xs">4º Copo</span>
-                        </button>
-
-                        <button onclick="toggleWaterGlass(5)" id="water-glass-5" class="glass-btn border-2 border-sky-300 bg-sky-50 text-sky-700 py-3 rounded-2xl font-bold flex flex-col items-center justify-center hover:bg-sky-100 transition active:scale-95">
-                            <i class="fa-solid fa-glass-water text-2xl mb-1"></i>
-                            <span class="text-xs">5º Copo</span>
-                        </button>
-
-                        <button onclick="toggleWaterGlass(6)" id="water-glass-6" class="glass-btn border-2 border-sky-300 bg-sky-50 text-sky-700 py-3 rounded-2xl font-bold flex flex-col items-center justify-center hover:bg-sky-100 transition active:scale-95">
-                            <i class="fa-solid fa-glass-water text-2xl mb-1"></i>
-                            <span class="text-xs">6º Copo</span>
-                        </button>
-                    </div>
-                </section>
-
-            </div>
-
-            <!-- ================= COLUNA DIREITA: ORGANIZAÇÃO & CONTATOS ================= -->
-            <div class="space-y-6" id="col-right">
-
-                <!-- BLOCO 3: AGENDA E CONSULTAS -->
-                <section id="section-agenda" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
-                    <div class="border-b pb-3 flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">
-                                <i class="fa-solid fa-stethoscope"></i>
-                            </div>
-                            <div>
-                                <h2 class="text-xl md:text-2xl font-black text-emerald-900">3. Próximas Consultas</h2>
-                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Seus horários médicos agendados</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-3">
-                        
-                        <!-- Consulta 1 -->
-                        <div class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-2xl space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="bg-emerald-700 text-white font-extrabold px-3 py-1 rounded-lg text-xs">
-                                    Próxima Terça-feira
-                                </span>
-                                <span class="text-emerald-900 font-black text-lg">14:30</span>
-                            </div>
-                            <h3 class="text-lg font-extrabold text-slate-900">Dr. Roberto (Cardiologista)</h3>
-                            <p class="text-slate-700 text-sm font-medium">
-                                <i class="fa-solid fa-location-dot text-emerald-700 mr-1"></i> Posto de Saúde Central - Sala 4
-                            </p>
-                        </div>
-
-                        <!-- Consulta 2 -->
-                        <div class="p-4 bg-blue-50 border-2 border-blue-200 rounded-2xl space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="bg-blue-700 text-white font-extrabold px-3 py-1 rounded-lg text-xs">
-                                    Dia 20 do Mês
-                                </span>
-                                <span class="text-blue-900 font-black text-lg">07:00</span>
-                            </div>
-                            <h3 class="text-lg font-extrabold text-slate-900">Exame de Sangue em Jejum</h3>
-                            <p class="text-slate-700 text-sm font-medium">
-                                <i class="fa-solid fa-location-dot text-blue-700 mr-1"></i> Laboratório Exato (Rua das Flores, 120)
-                            </p>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- BLOCO 4: CONTATOS DE EMERGÊNCIA E FAMÍLIA -->
-                <section id="section-contacts" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
-                    <div class="border-b pb-3 flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-purple-100 text-purple-700 p-3 rounded-2xl text-xl font-bold">
-                                <i class="fa-solid fa-address-book"></i>
-                            </div>
-                            <div>
-                                <h2 class="text-xl md:text-2xl font-black text-purple-900">4. Lista de Ligar Rápido</h2>
-                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Toque no botão verde para ligar</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Serviços Públicos de Emergência -->
-                    <div class="grid grid-cols-2 gap-3">
-                        <a href="tel:192" class="btn-action bg-red-50 hover:bg-red-100 border-2 border-red-300 p-3 rounded-2xl flex items-center justify-between transition">
-                            <div class="flex items-center space-x-2">
-                                <span class="bg-red-600 text-white font-black px-2.5 py-1 rounded-xl text-base">192</span>
-                                <span class="font-extrabold text-sm text-red-950">SAMU</span>
-                            </div>
-                            <div class="bg-green-600 text-white p-2 rounded-xl">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                        </a>
-
-                        <a href="tel:190" class="btn-action bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 p-3 rounded-2xl flex items-center justify-between transition">
-                            <div class="flex items-center space-x-2">
-                                <span class="bg-blue-700 text-white font-black px-2.5 py-1 rounded-xl text-base">190</span>
-                                <span class="font-extrabold text-sm text-blue-950">Polícia</span>
-                            </div>
-                            <div class="bg-green-600 text-white p-2 rounded-xl">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Telefones de Familiares -->
-                    <div class="space-y-3 pt-2">
-                        <h3 class="text-sm font-black text-slate-500 uppercase tracking
+                <section id
