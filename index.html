@@ -32,3 +32,775 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-full flex flex-col font-sans transition-all duration-200" id="main-body">
+
+    <div class="bg-slate-900 text-white px-4 py-2 border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2 text-sm font-bold">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-universal-access text-amber-400 text-lg"></i>
+                <span>Acessibilidade:</span>
+            </div>
+            <div class="flex items-center space-x-2 flex-wrap">
+                <button onclick="changeFontSize(0.1)" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-600 flex items-center gap-1 active:scale-95" title="Aumentar Texto">
+                    <i class="fa-solid fa-plus text-xs"></i> Texto
+                </button>
+                <button onclick="changeFontSize(-0.1)" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-600 flex items-center gap-1 active:scale-95" title="Diminuir Texto">
+                    <i class="fa-solid fa-minus text-xs"></i> Texto
+                </button>
+                <button onclick="toggleContrast()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1.5 rounded-xl font-black flex items-center gap-1 active:scale-95">
+                    <i class="fa-solid fa-circle-half-stroke"></i> Contraste
+                </button>
+                <button onclick="speakPageSummary()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 active:scale-95">
+                    <i class="fa-solid fa-volume-high"></i> Ouvir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-30 border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-red-500 text-white p-3 rounded-2xl flex items-center justify-center shadow">
+                    <i class="fa-solid fa-heart-pulse text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-black tracking-tight leading-none">VIDA SÊNIOR</h1>
+                    <p class="text-xs md:text-sm font-semibold text-blue-200 mt-1">Seu painel diário de saúde e contatos</p>
+                </div>
+            </div>
+
+            <!-- Data Atual -->
+            <div class="bg-blue-800 text-blue-100 font-bold px-4 py-2 rounded-xl text-sm border border-blue-700 flex items-center gap-2 shadow-inner">
+                <i class="fa-solid fa-calendar-day text-amber-400 text-base"></i>
+                <span id="current-date-display">Carregando data...</span>
+            </div>
+        </div>
+
+        <!-- ABAS DE NAVEGAÇÃO / FILTROS -->
+        <div class="bg-blue-950 px-4 py-2 border-t border-blue-800">
+            <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto pb-1">
+                <button onclick="filterCategory('all')" id="tab-all" class="tab-btn active px-4 py-2 rounded-xl font-extrabold text-sm border border-blue-700 whitespace-nowrap transition flex items-center gap-2">
+                    <i class="fa-solid fa-border-all"></i> Tudo
+                </button>
+                <button onclick="filterCategory('meds')" id="tab-meds" class="tab-btn bg-blue-900 text-blue-100 px-4 py-2 rounded-xl font-extrabold text-sm border border-blue-800 hover:bg-blue-800 whitespace-nowrap transition flex items-center gap-2">
+                    <i class="fa-solid fa-pills text-blue-300"></i> Remédios
+                </button>
+                <button onclick="filterCategory('water')" id="tab-water" class="tab-btn bg-blue-900 text-blue-100 px-4 py-2 rounded-xl font-extrabold text-sm border border-blue-800 hover:bg-blue-800 whitespace-nowrap transition flex items-center gap-2">
+                    <i class="fa-solid fa-glass-water text-sky-300"></i> Água
+                </button>
+                <button onclick="filterCategory('agenda')" id="tab-agenda" class="tab-btn bg-blue-900 text-blue-100 px-4 py-2 rounded-xl font-extrabold text-sm border border-blue-800 hover:bg-blue-800 whitespace-nowrap transition flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check text-emerald-400"></i> Consultas
+                </button>
+                <button onclick="filterCategory('contacts')" id="tab-contacts" class="tab-btn bg-blue-900 text-blue-100 px-4 py-2 rounded-xl font-extrabold text-sm border border-blue-800 hover:bg-blue-800 whitespace-nowrap transition flex items-center gap-2">
+                    <i class="fa-solid fa-address-book text-purple-300"></i> Contatos
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-r from-red-600 to-red-700 text-white p-4 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3 text-center sm:text-left">
+                <div class="bg-white text-red-600 rounded-full p-3 text-2xl hidden sm:flex items-center justify-center">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl md:text-2xl font-black">PRECISA DE AJUDA URGENTE?</h2>
+                    <p class="text-red-100 text-sm font-medium">Ligue para socorro médico ou avise sua família imediatamente.</p>
+                </div>
+            </div>
+            <button onclick="openSosModal()" class="w-full sm:w-auto bg-white text-red-600 hover:bg-red-50 font-black text-lg py-3 px-6 rounded-2xl shadow-lg pulse-sos flex items-center justify-center space-x-2 border-2 border-red-300 active:scale-95 transition">
+                <i class="fa-solid fa-phone-flip text-xl"></i>
+                <span>SOLICITAR SOCORRO</span>
+            </button>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto w-full flex-grow p-4 md:p-6">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="main-grid">
+
+            <!-- COLUNA ESQUERDA: REMÉDIOS E ÁGUA -->
+            <div class="space-y-6" id="col-left">
+
+                <!-- BLOCO 1: MEUS REMÉDIOS -->
+                <section id="section-meds" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
+                    <div class="border-b pb-3 flex justify-between items-center gap-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-blue-100 text-blue-700 p-3 rounded-2xl text-xl font-bold">
+                                <i class="fa-solid fa-capsules"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl md:text-2xl font-black text-blue-900">1. Remédios do Dia</h2>
+                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Toque para marcar como tomado</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1">
+                            <span id="med-counter" class="bg-blue-100 text-blue-800 font-black px-3 py-1 rounded-xl text-xs whitespace-nowrap">
+                                0/0 Concluídos
+                            </span>
+                            <button onclick="openAddMedModal()" class="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 border border-blue-200 bg-blue-50 px-2.5 py-1 rounded-lg">
+                                <i class="fa-solid fa-plus-circle"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Medicamentos Dinâmica -->
+                    <div class="space-y-3" id="med-list">
+                        <!-- Carregado via JS -->
+                    </div>
+                </section>
+
+                <!-- BLOCO 2: HIDRATAÇÃO (CONTADOR DE ÁGUA) -->
+                <section id="section-water" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
+                    <div class="border-b pb-3 flex justify-between items-center gap-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-sky-100 text-sky-600 p-3 rounded-2xl text-xl font-bold">
+                                <i class="fa-solid fa-glass-water"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl md:text-2xl font-black text-slate-900">2. Consumo de Água</h2>
+                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Meta diária: 2,0 Litros (8 copos)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-sky-50 rounded-2xl p-4 border border-sky-100 flex flex-col items-center justify-center space-y-3 text-center">
+                        <div class="text-3xl md:text-4xl font-black text-sky-700 flex items-center gap-2">
+                            <i class="fa-solid fa-droplet text-sky-500"></i>
+                            <span id="water-count-display">0</span> <span class="text-lg font-bold text-slate-600">/ 8 Copos</span>
+                        </div>
+                        <p class="text-xs font-bold text-sky-800" id="water-ml-display">(0 ml ingeridos)</p>
+
+                        <!-- Barra de progresso da água -->
+                        <div class="w-full bg-slate-200 rounded-full h-4 overflow-hidden border border-slate-300">
+                            <div id="water-progress-bar" class="bg-sky-500 h-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+
+                        <!-- Botões de Adicionar/Remover -->
+                        <div class="flex items-center gap-3 pt-2">
+                            <button onclick="changeWater(-1)" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-black px-4 py-2 rounded-xl text-lg active:scale-95 transition">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <button onclick="changeWater(1)" class="bg-sky-600 hover:bg-sky-700 text-white font-black px-6 py-3 rounded-xl text-base shadow flex items-center gap-2 active:scale-95 transition">
+                                <i class="fa-solid fa-plus text-lg"></i>
+                                <span>Beber 1 Copo (250ml)</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="space-y-6" id="col-right">
+
+                <!-- BLOCO 3: MINHAS CONSULTAS E COMPROMISSOS -->
+                <section id="section-agenda" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
+                    <div class="border-b pb-3 flex justify-between items-center gap-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-emerald-100 text-emerald-700 p-3 rounded-2xl text-xl font-bold">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl md:text-2xl font-black text-slate-900">3. Próximas Consultas</h2>
+                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Médicos e compromissos marcados</p>
+                            </div>
+                        </div>
+                        <button onclick="openAddAppointmentModal()" class="text-xs font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 border border-emerald-200 bg-emerald-50 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-plus-circle"></i> Adicionar
+                        </button>
+                    </div>
+
+                    <!-- Lista de Consultas -->
+                    <div class="space-y-3" id="appointment-list">
+                        <!-- Carregado via JS -->
+                    </div>
+                </section>
+
+                <!-- BLOCO 4: CONTATOS DE EMERGÊNCIA E FAMÍLIA -->
+                <section id="section-contacts" class="card-bg bg-white rounded-3xl p-5 md:p-6 shadow-md border-2 border-slate-200 space-y-4">
+                    <div class="border-b pb-3 flex justify-between items-center gap-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-purple-100 text-purple-700 p-3 rounded-2xl text-xl font-bold">
+                                <i class="fa-solid fa-address-book"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl md:text-2xl font-black text-slate-900">4. Contatos da Família</h2>
+                                <p class="text-xs md:text-sm text-slate-600 font-semibold">Ligue ou envie mensagem com 1 clique</p>
+                            </div>
+                        </div>
+                        <button onclick="openAddContactModal()" class="text-xs font-bold text-purple-700 hover:text-purple-900 flex items-center gap-1 border border-purple-200 bg-purple-50 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-plus-circle"></i> Adicionar
+                        </button>
+                    </div>
+
+                    <!-- Lista de Contatos -->
+                    <div class="space-y-3" id="contacts-list">
+                        <!-- Carregado via JS -->
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- MODAL DE EMERGÊNCIA SOS -->
+    <div id="modal-sos" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="modal-box bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border-4 border-red-500 space-y-5 animate-in fade-in zoom-in duration-200">
+            <div class="flex justify-between items-center border-b pb-3">
+                <div class="flex items-center space-x-2 text-red-600 font-black text-2xl">
+                    <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
+                    <span>PEDIR SOCORRO</span>
+                </div>
+                <button onclick="closeSosModal()" class="text-slate-500 hover:text-slate-800 text-2xl font-black p-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <p class="text-slate-700 font-semibold text-base">
+                Selecione abaixo quem você gostaria de chamar imediatamente:
+            </p>
+
+            <div class="space-y-3">
+                <!-- SAMU 192 -->
+                <a href="tel:192" class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-xl py-4 px-5 rounded-2xl flex items-center justify-between shadow-lg active:scale-95 transition">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-truck-medical text-3xl"></i>
+                        <span>SAMU - Ligue 192</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <!-- BOMBEIROS 193 -->
+                <a href="tel:193" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-black text-xl py-4 px-5 rounded-2xl flex items-center justify-between shadow-lg active:scale-95 transition">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-fire-extinguisher text-3xl"></i>
+                        <span>BOMBEIROS - Ligue 193</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+                <!-- CONTATO DE EMERGÊNCIA PRINCIPAL -->
+                <a href="tel:41999998888" id="sos-family-link" class="w-full bg-purple-700 hover:bg-purple-800 text-white font-black text-xl py-4 px-5 rounded-2xl flex items-center justify-between shadow-lg active:scale-95 transition">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-user-shield text-3xl"></i>
+                        <div>
+                            <p id="sos-family-name" class="text-lg leading-tight">Filho / Familiar</p>
+                            <p class="text-xs font-normal text-purple-200">Contato de emergência</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+
+            <button onclick="closeSosModal()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-extrabold py-3 rounded-xl text-base">
+                Cancelar / Voltar
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL ADICIONAR REMÉDIO -->
+    <div id="modal-add-med" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="modal-box bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border-2 border-blue-500 space-y-4">
+            <h3 class="text-xl font-black text-blue-900 flex items-center gap-2">
+                <i class="fa-solid fa-pills"></i> Adicionar Remédio
+            </h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Nome do Medicamento:</label>
+                    <input type="text" id="new-med-name" placeholder="Ex: Losartana 50mg" class="w-full border-2 border-slate-300 rounded-xl p-3 font-semibold focus:border-blue-600 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Horário:</label>
+                    <input type="text" id="new-med-time" placeholder="Ex: 08:00 - Com água" class="w-full border-2 border-slate-300 rounded-xl p-3 font-semibold focus:border-blue-600 outline-none">
+                </div>
+            </div>
+            <div class="flex gap-2 justify-end pt-2">
+                <button onclick="closeAddMedModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-xl">Cancelar</button>
+                <button onclick="saveMedication()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 rounded-xl">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADICIONAR CONSULTA -->
+    <div id="modal-add-appointment" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="modal-box bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border-2 border-emerald-500 space-y-4">
+            <h3 class="text-xl font-black text-emerald-900 flex items-center gap-2">
+                <i class="fa-solid fa-calendar-plus"></i> Nova Consulta / Compromisso
+            </h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Especialidade / Título:</label>
+                    <input type="text" id="new-app-title" placeholder="Ex: Cardiologista" class="w-full border-2 border-slate-300 rounded-xl p-3 font-semibold focus:border-emerald-600 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Data e Hora / Local:</label>
+                    <input type="text" id="new-app-details" placeholder="Ex: Amanhã às 14:00 - Clínica Santa Maria" class="w-full border-2 border-slate-300 rounded-xl p-3 font-semibold focus:border-emerald-600 outline-none">
+                </div>
+            </div>
+            <div class="flex gap-2 justify-end pt-2">
+                <button onclick="closeAddAppointmentModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-xl">Cancelar</button>
+                <button onclick="saveAppointment()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2 rounded-xl">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADICIONAR CONTATO -->
+    <div id="modal-add-contact" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="modal-box bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border-2 border-purple-500 space-y-4">
+            <h3 class="text-xl font-black text-purple-900 flex items-center gap-2">
+                <i class="fa-solid fa-user-plus"></i> Novo Contato
+            </h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Nome:</label>
+                    <input type="text" id="new-contact-name" placeholder="Ex: Dra. Ana (Cardio)" class="w-full border-2 border-slate-300 rounded-xl p-3 font-semibold focus:border-purple-600 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Relação / Vínculo:</label>
+                    <input type="text" id="new-contact-relation" placeholder="Ex: Médica da Família" class="w-full border-2 border-slate-300 rounded-xl p-3 font-semibold focus:border-purple-600 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Telefone (números com DDD):</label>
+                    <input type="tel" id="new-contact-phone" placeholder="Ex: 41999998888" class="w-full border-2 border-slate-300 rounded-xl p-3 font-semibold focus:border-purple-600 outline-none">
+                </div>
+            </div>
+            <div class="flex gap-2 justify-end pt-2">
+                <button onclick="closeAddContactModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-xl">Cancelar</button>
+                <button onclick="saveContact()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2 rounded-xl">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Safe LocalStorage handler for restricted/iframe environments
+        function safeGetStorage(key, fallback) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : fallback;
+            } catch (e) {
+                console.warn('LocalStorage not accessible:', e);
+                return fallback;
+            }
+        }
+
+        function safeSetStorage(key, value) {
+            try {
+                localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
+            } catch (e) {
+                console.warn('LocalStorage write failed:', e);
+            }
+        }
+
+        // Explicitly attach functions to global window immediately so inline onclick handlers never fail
+        window.changeFontSize = function(delta) {
+            currentFontScale = Math.min(Math.max(0.8, currentFontScale + delta), 1.5);
+            document.documentElement.style.setProperty('--font-scale', currentFontScale);
+        };
+
+        window.toggleContrast = function() {
+            isHighContrast = !isHighContrast;
+            const body = document.getElementById('main-body');
+            if (body) {
+                if (isHighContrast) {
+                    body.classList.add('high-contrast');
+                } else {
+                    body.classList.remove('high-contrast');
+                }
+            }
+        };
+
+        window.speakPageSummary = function() {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            
+            const medCompleted = medications.filter(m => m.taken).length;
+            const text = `Assistente Vida Sênior. Você tomou ${medCompleted} de ${medications.length} remédios hoje. Você bebeu ${waterGlasses} de 8 copos d'água. Você tem ${appointments.length} compromissos agendados.`;
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'pt-BR';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        };
+
+        window.filterCategory = function(category) {
+            const tabs = ['all', 'meds', 'water', 'agenda', 'contacts'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById(`tab-${tab}`);
+                if (btn) {
+                    if (tab === category) {
+                        btn.classList.add('active');
+                        btn.classList.remove('bg-blue-900');
+                    } else {
+                        btn.classList.remove('active');
+                        btn.classList.add('bg-blue-900');
+                    }
+                }
+            });
+
+            const secMeds = document.getElementById('section-meds');
+            const secWater = document.getElementById('section-water');
+            const secAgenda = document.getElementById('section-agenda');
+            const secContacts = document.getElementById('section-contacts');
+
+            if (secMeds) secMeds.style.display = (category === 'all' || category === 'meds') ? 'block' : 'none';
+            if (secWater) secWater.style.display = (category === 'all' || category === 'water') ? 'block' : 'none';
+            if (secAgenda) secAgenda.style.display = (category === 'all' || category === 'agenda') ? 'block' : 'none';
+            if (secContacts) secContacts.style.display = (category === 'all' || category === 'contacts') ? 'block' : 'none';
+        };
+
+        window.openSosModal = function() {
+            const modal = document.getElementById('modal-sos');
+            if (modal) modal.classList.remove('hidden');
+            if (contacts && contacts.length > 0) {
+                const first = contacts[0];
+                const link = document.getElementById('sos-family-link');
+                const name = document.getElementById('sos-family-name');
+                if (link && name) {
+                    link.href = `tel:${first.phone}`;
+                    name.textContent = `${first.name} (${first.relation})`;
+                }
+            }
+        };
+
+        window.closeSosModal = function() {
+            const modal = document.getElementById('modal-sos');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.openAddMedModal = function() {
+            const modal = document.getElementById('modal-add-med');
+            if (modal) modal.classList.remove('hidden');
+            const input = document.getElementById('new-med-name');
+            if (input) input.focus();
+        };
+
+        window.closeAddMedModal = function() {
+            const modal = document.getElementById('modal-add-med');
+            if (modal) modal.classList.add('hidden');
+            const nameEl = document.getElementById('new-med-name');
+            const timeEl = document.getElementById('new-med-time');
+            if (nameEl) nameEl.value = '';
+            if (timeEl) timeEl.value = '';
+        };
+
+        window.saveMedication = function() {
+            const nameInput = document.getElementById('new-med-name');
+            const timeInput = document.getElementById('new-med-time');
+            if (!nameInput) return;
+
+            const name = nameInput.value.trim();
+            const time = timeInput ? timeInput.value.trim() : '';
+            if (!name) return;
+
+            medications.push({
+                id: Date.now(),
+                name: name,
+                time: time || 'Horário a definir',
+                taken: false
+            });
+
+            saveData();
+            renderMeds();
+            closeAddMedModal();
+        };
+
+        window.toggleMedStatus = function(id) {
+            medications = medications.map(med => {
+                if (med.id === id) {
+                    return { ...med, taken: !med.taken };
+                }
+                return med;
+            });
+            saveData();
+            renderMeds();
+        };
+
+        window.deleteMed = function(id) {
+            medications = medications.filter(med => med.id !== id);
+            saveData();
+            renderMeds();
+        };
+
+        window.changeWater = function(delta) {
+            waterGlasses = Math.max(0, waterGlasses + delta);
+            saveData();
+            updateWaterDisplay();
+        };
+
+        window.openAddAppointmentModal = function() {
+            const modal = document.getElementById('modal-add-appointment');
+            if (modal) modal.classList.remove('hidden');
+            const input = document.getElementById('new-app-title');
+            if (input) input.focus();
+        };
+
+        window.closeAddAppointmentModal = function() {
+            const modal = document.getElementById('modal-add-appointment');
+            if (modal) modal.classList.add('hidden');
+            const titleInput = document.getElementById('new-app-title');
+            const detailsInput = document.getElementById('new-app-details');
+            if (titleInput) titleInput.value = '';
+            if (detailsInput) detailsInput.value = '';
+        };
+
+        window.saveAppointment = function() {
+            const titleInput = document.getElementById('new-app-title');
+            const detailsInput = document.getElementById('new-app-details');
+            if (!titleInput) return;
+
+            const title = titleInput.value.trim();
+            const details = detailsInput ? detailsInput.value.trim() : '';
+            if (!title) return;
+
+            appointments.push({
+                id: Date.now(),
+                title: title,
+                details: details || 'Sem observações'
+            });
+
+            saveData();
+            renderAppointments();
+            closeAddAppointmentModal();
+        };
+
+        window.deleteAppointment = function(id) {
+            appointments = appointments.filter(a => a.id !== id);
+            saveData();
+            renderAppointments();
+        };
+
+        window.openAddContactModal = function() {
+            const modal = document.getElementById('modal-add-contact');
+            if (modal) modal.classList.remove('hidden');
+            const input = document.getElementById('new-contact-name');
+            if (input) input.focus();
+        };
+
+        window.closeAddContactModal = function() {
+            const modal = document.getElementById('modal-add-contact');
+            if (modal) modal.classList.add('hidden');
+            const nameInput = document.getElementById('new-contact-name');
+            const relInput = document.getElementById('new-contact-relation');
+            const phoneInput = document.getElementById('new-contact-phone');
+            if (nameInput) nameInput.value = '';
+            if (relInput) relInput.value = '';
+            if (phoneInput) phoneInput.value = '';
+        };
+
+        window.saveContact = function() {
+            const nameInput = document.getElementById('new-contact-name');
+            const relationInput = document.getElementById('new-contact-relation');
+            const phoneInput = document.getElementById('new-contact-phone');
+
+            if (!nameInput || !phoneInput) return;
+
+            const name = nameInput.value.trim();
+            const relation = relationInput ? relationInput.value.trim() : '';
+            const phone = phoneInput.value.replace(/\D/g, '');
+
+            if (!name || !phone) return;
+
+            contacts.push({
+                id: Date.now(),
+                name: name,
+                relation: relation || 'Contato',
+                phone: phone
+            });
+
+            saveData();
+            renderContacts();
+            closeAddContactModal();
+        };
+
+        window.deleteContact = function(id) {
+            contacts = contacts.filter(c => c.id !== id);
+            saveData();
+            renderContacts();
+        };
+
+        let currentFontScale = 1.0;
+        let isHighContrast = false;
+        let waterGlasses = 0;
+
+        let medications = safeGetStorage('vida_senior_meds', [
+            { id: 1, name: 'Losartana 50mg', time: '08:00 - Com 1 copo d\'água', taken: false },
+            { id: 2, name: 'Sinvastatina 20mg', time: '20:00 - Após o jantar', taken: false },
+            { id: 3, name: 'Vitamina D 7.000 UI', time: '12:00 - Almoço (Segunda-feira)', taken: true }
+        ]);
+
+        let appointments = safeGetStorage('vida_senior_apps', [
+            { id: 1, title: 'Cardiologista - Dr. Roberto', details: 'Amanhã, às 14:30 - R. das Flores, 120' },
+            { id: 2, title: 'Exame de Sangue (Jejum)', details: 'Sexta-feira, às 07:00 - Laboratório Central' }
+        ]);
+
+        let contacts = safeGetStorage('vida_senior_contacts', [
+            { id: 1, name: 'Maria (Filha)', relation: 'Emergência / Família', phone: '41999998888' },
+            { id: 2, name: 'Carlos (Filho)', relation: 'Apoio Diário', phone: '41988887777' },
+            { id: 3, name: 'Dr. Lucas', relation: 'Médico Geral', phone: '4133332222' }
+        ]);
+
+        function saveData() {
+            safeSetStorage('vida_senior_meds', medications);
+            safeSetStorage('vida_senior_apps', appointments);
+            safeSetStorage('vida_senior_contacts', contacts);
+            safeSetStorage('vida_senior_water', waterGlasses.toString());
+        }
+
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('pt-BR', options);
+            const formatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+            const dateEl = document.getElementById('current-date-display');
+            if (dateEl) dateEl.textContent = formatted;
+        }
+
+        function updateWaterDisplay() {
+            const countDisplay = document.getElementById('water-count-display');
+            const mlDisplay = document.getElementById('water-ml-display');
+            const progressBar = document.getElementById('water-progress-bar');
+
+            if (countDisplay) countDisplay.textContent = waterGlasses;
+            if (mlDisplay) mlDisplay.textContent = `(${waterGlasses * 250} ml ingeridos)`;
+            
+            const pct = Math.min(100, Math.round((waterGlasses / 8) * 100));
+            if (progressBar) progressBar.style.width = `${pct}%`;
+        }
+
+        function renderMeds() {
+            const container = document.getElementById('med-list');
+            const counter = document.getElementById('med-counter');
+            if (!container) return;
+
+            const completed = medications.filter(m => m.taken).length;
+            if (counter) {
+                counter.textContent = `${completed}/${medications.length} Concluídos`;
+            }
+
+            if (medications.length === 0) {
+                container.innerHTML = `
+                    <p class="text-slate-500 font-medium text-center py-4 bg-slate-50 rounded-2xl border">
+                        Nenhum medicamento cadastrado. Toque em "+ Adicionar" acima.
+                    </p>
+                `;
+                return;
+            }
+
+            container.innerHTML = medications.map(med => `
+                <div class="p-3.5 md:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 ${med.taken ? 'bg-emerald-50 border-emerald-300' : 'bg-slate-50 border-slate-200'}">
+                    <button onclick="toggleMedStatus(${med.id})" class="flex items-center gap-3 text-left flex-grow">
+                        <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl flex items-center justify-center font-bold text-lg transition ${med.taken ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500 border border-slate-300'}">
+                            <i class="fa-solid ${med.taken ? 'fa-check' : 'fa-pills'}"></i>
+                        </div>
+                        <div>
+                            <p class="font-extrabold text-base md:text-lg ${med.taken ? 'line-through text-slate-500' : 'text-slate-900'}">${med.name}</p>
+                            <p class="text-xs md:text-sm font-bold ${med.taken ? 'text-emerald-700' : 'text-blue-700'}">
+                                <i class="fa-regular fa-clock mr-1"></i>${med.time}
+                            </p>
+                        </div>
+                    </button>
+                    <button onclick="deleteMed(${med.id})" class="text-slate-400 hover:text-red-600 p-2 rounded-lg text-lg transition" title="Excluir">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderAppointments() {
+            const container = document.getElementById('appointment-list');
+            if (!container) return;
+
+            if (appointments.length === 0) {
+                container.innerHTML = `
+                    <p class="text-slate-500 font-medium text-center py-4 bg-slate-50 rounded-2xl border">
+                        Nenhuma consulta agendada.
+                    </p>
+                `;
+                return;
+            }
+
+            container.innerHTML = appointments.map(app => `
+                <div class="p-3.5 md:p-4 rounded-2xl bg-emerald-50/60 border-2 border-emerald-200 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-emerald-600 text-white p-2.5 rounded-xl text-lg">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+                        <div>
+                            <p class="font-extrabold text-slate-900 text-base md:text-lg">${app.title}</p>
+                            <p class="text-xs md:text-sm font-bold text-emerald-800">
+                                <i class="fa-solid fa-location-dot mr-1"></i>${app.details}
+                            </p>
+                        </div>
+                    </div>
+                    <button onclick="deleteAppointment(${app.id})" class="text-slate-400 hover:text-red-600 p-2 rounded-lg text-lg transition" title="Excluir">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderContacts() {
+            const container = document.getElementById('contacts-list');
+            if (!container) return;
+
+            if (contacts.length === 0) {
+                container.innerHTML = `
+                    <p class="text-slate-500 font-medium text-center py-4 bg-slate-50 rounded-2xl border">
+                        Nenhum contato cadastrado.
+                    </p>
+                `;
+                return;
+            }
+
+            container.innerHTML = contacts.map(c => `
+                <div class="p-3.5 md:p-4 rounded-2xl bg-purple-50/60 border-2 border-purple-200 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-purple-600 text-white p-2.5 rounded-xl text-lg flex-shrink-0">
+                            <i class="fa-solid fa-user text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-extrabold text-slate-900 text-base md:text-lg">${c.name}</p>
+                            <p class="text-xs md:text-sm font-bold text-purple-800">${c.relation}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end pt-2 sm:pt-0">
+                        <a href="tel:${c.phone}" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl text-sm flex items-center gap-1.5 active:scale-95 transition">
+                            <i class="fa-solid fa-phone"></i> Ligar
+                        </a>
+                        <a href="https://wa.me/55${c.phone}" target="_blank" rel="noopener noreferrer" class="bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-2 rounded-xl text-sm flex items-center gap-1.5 active:scale-95 transition">
+                            <i class="fa-brands fa-whatsapp text-base"></i> Whats
+                        </a>
+                        <button onclick="deleteContact(${c.id})" class="text-slate-400 hover:text-red-600 p-2 rounded-lg text-lg transition" title="Excluir">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function initApp() {
+            const savedWater = safeGetStorage('vida_senior_water', '0');
+            waterGlasses = parseInt(savedWater, 10) || 0;
+
+            updateCurrentDate();
+            renderMeds();
+            updateWaterDisplay();
+            renderAppointments();
+            renderContacts();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>
