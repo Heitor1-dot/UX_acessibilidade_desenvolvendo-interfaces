@@ -1,5 +1,4 @@
-
-  :root {
+    :root {
             --font-scale: 1;
         }
 
@@ -59,7 +58,7 @@
             animation: pulse-sos 2s infinite ease-in-out;
         }
 
-        /* Personalização do scroll */
+        /* Personalização do scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
